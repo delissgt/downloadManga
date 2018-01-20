@@ -1,0 +1,1 @@
+print("lo que quieras el intenet va a estas viendo tus chistesitos")
