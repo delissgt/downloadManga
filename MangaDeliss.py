@@ -6,6 +6,9 @@ from PyQt4.QtCore import pyqtSignal as Signal
 import re
 from PyQt4.QtCore import QDir
 import tempfile
+import urllib #para descargar imagen
+import os
+
                                 #jalar interfaz
 class VentanaMain(QMainWindow,DescManga.Ui_MainWindow):
     def __init__(self, parent=None):
@@ -41,9 +44,7 @@ class ClaseHilo(QThread): #obetner to-do de la web operaciones que no depende de
         self.link = requests.get(miLink) #obtener link
 
         miCarpetaTemp = QDir.tempPath()
-        print (miCarpetaTemp)
-
-        nameDirTemp = tempfile.mkdtemp(prefix='deliss', dir=str(miCarpetaTemp))
+        self.nameDirTemp = tempfile.mkdtemp(prefix='deliss', dir=str(miCarpetaTemp))
 
 
     def run(self):#obtener datos de la paginaWeb
@@ -52,25 +53,20 @@ class ClaseHilo(QThread): #obetner to-do de la web operaciones que no depende de
 
         #Obtengo datos de la pagina
         obtener_titulo = noStarchSoup.select('h2 > a')  # busco el elemto dando esta especificacion ('h2 > a')
-        #print (str(obtener_titulo[0]))
-
 
         elementoC = noStarchSoup.select('form > input[name=c]')
         c = elementoC[1].get('value')
-        print (c)
+
         elementoI = noStarchSoup.select('form > input[name=i]')
         i = elementoI[1].get('value')
-        print (i)
+
         elementoCP = noStarchSoup.select('form > input[name=cp]')
         cp = elementoCP[2].get('value')
         #numero inicial capitulo
-        print (cp)
 
         numCapiF = noStarchSoup.select('form > select[name=cp]')
         num = numCapiF[0].select('option')[0].get_text()
         #numero final del capitulo
-        print (num)
-
 
 
         get_texto_cap = noStarchSoup.select('option[selected="selected"]')  # obtener numero captitulo
@@ -79,9 +75,16 @@ class ClaseHilo(QThread): #obetner to-do de la web operaciones que no depende de
         cap = expresion_regular.search(texto)
         capitulo = cap.group()
 
+        #obtener imagen
+        elementoImagen = noStarchSoup.select('center > img')
+        urlImagen = elementoImagen[0].get('src')
+        urllib.urlretrieve(urlImagen, os.path.join(self.nameDirTemp, "imagenCap1.jpg"))
 
 
+        #Obtengo datos y los mando
         self.datos_listos.emit(obtener_titulo, capitulo)
+
+
 
 
 
