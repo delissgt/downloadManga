@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'prodeliss.ui'
 #
-# Created by: PyQt4 UI code generator 4.12.1
+# Created by: PyQt4 UI code generator 4.11.4
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -65,7 +65,7 @@ class Ui_MainWindow(object):
         self.verticalLayout.addItem(spacerItem)
         self.verticalLayout_2.addLayout(self.verticalLayout)
         self.barraProgreso = QtGui.QProgressBar(self.centralwidget)
-        self.barraProgreso.setProperty("value", 24)
+        self.barraProgreso.setProperty("value", 0)
         self.barraProgreso.setObjectName(_fromUtf8("barraProgreso"))
         self.verticalLayout_2.addWidget(self.barraProgreso)
         self.horizontalLayout_2 = QtGui.QHBoxLayout()

@@ -96,7 +96,7 @@ font: oblique 14pt &quot;Mingzat&quot;;</string>
     <item>
      <widget class="QProgressBar" name="barraProgreso">
       <property name="value">
-       <number>24</number>
+       <number>0</number>
       </property>
      </widget>
     </item>
